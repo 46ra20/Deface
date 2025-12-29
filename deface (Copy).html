@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TERMINAL CRITICAL</title>
+<style>
+    :root {
+        --primary: #00ff41;
+        --accent: #ff0033;
+        --bg: #050505;
+    }
+
+    body {
+        background: var(--bg);
+        color: var(--primary);
+        font-family: 'Courier New', monospace;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+        /* Screen shake animation applied to everything */
+        animation: shake 0.2s infinite;
+    }
+
+    /* Severe Glitch Filter */
+    #glitch-overlay {
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px);
+        pointer-events: none;
+        z-index: 100;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        background: radial-gradient(circle, rgba(255,0,51,0.15) 0%, transparent 70%);
+    }
+
+    /* Aggressive Glitch Text */
+    .title {
+        font-size: 6rem;
+        font-weight: 900;
+        color: #fff;
+        text-transform: uppercase;
+        position: relative;
+        text-shadow: 0.05em 0 0 var(--accent), -0.05em -0.025em 0 #00ffff;
+        animation: glitch-vibrate 0.1s infinite;
+    }
+
+    .status-box {
+        border: 4px solid var(--accent);
+        background: rgba(0,0,0,0.8);
+        padding: 2rem;
+        margin-top: 2rem;
+        max-width: 800px;
+        box-shadow: 0 0 50px var(--accent);
+        transform: skewX(-5deg);
+    }
+
+    .warning {
+        color: var(--accent);
+        font-size: 2rem;
+        font-weight: bold;
+        text-decoration: underline;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    /* Matrix Rain with Red Glitch Shadows */
+    canvas {
+        position: fixed;
+        top: 0; left: 0;
+        z-index: -1;
+        filter: drop-shadow(0 0 5px var(--accent));
+    }
+
+    /* Keyframes for the "Breach" feel */
+    @keyframes shake {
+        0% { transform: translate(1px, 1px) rotate(0deg); }
+        25% { transform: translate(-1px, -1px) rotate(-0.5deg); }
+        50% { transform: translate(-2px, 0px) rotate(0.5deg); }
+        100% { transform: translate(1px, 1px) rotate(0deg); }
+    }
+
+    @keyframes glitch-vibrate {
+        0% { clip-path: inset(10% 0 30% 0); transform: translate(-5px); }
+        20% { clip-path: inset(40% 0 10% 0); transform: translate(5px); }
+        40% { clip-path: inset(60% 0 5% 0); transform: translate(-5px); }
+        80% { clip-path: inset(15% 0 50% 0); transform: translate(5px); }
+        100% { clip-path: inset(10% 0 30% 0); transform: translate(-5px); }
+    }
+
+    .stats {
+        text-align: left;
+        font-size: 1.2rem;
+        line-height: 1.8;
+    }
+
+    .highlight { color: #fff; background: var(--accent); padding: 0 5px; }
+</style>
+</head>
+<body>
+
+<div id="glitch-overlay"></div>
+<canvas id="matrix"></canvas>
+
+<div class="container">
+    <h1 class="title">SYSTEM DEAD</h1>
+    
+    <div class="status-box">
+        <span class="warning">!! CORE INTEGRITY FAILURE !!</span>
+        <div class="stats">
+            > ATTACKER: <span class="highlight">0x_NULL_GHOST</span><br>
+            > ACCESS: <span style="color:white">FULL KERNEL PRIVILEGE</span><br>
+            > DATA STATE: <span style="color:var(--accent)">DECRYPTING... [84%]</span><br>
+            > LOGS: <span style="color:yellow">WIPED</span>
+        </div>
+    </div>
+
+    <p style="margin-top: 2rem; font-weight: bold; font-size: 1.5rem;">
+        YOU HAVE BEEN <span id="flicker">DISCONNECTED</span> PERMANENTLY.
+    </p>
+</div>
+
+<script>
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const chars = "☠️☣️⚠️01010101ERROR";
+    const fontSize = 20;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function draw() {
+        // Very dark transparent black to let the trails last longer
+        ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = chars[Math.floor(Math.random() * chars.length)];
+            
+            // Randomly switch between Green and Red for a glitch look
+            ctx.fillStyle = Math.random() > 0.9 ? "#ff0033" : "#00ff41";
+            ctx.font = fontSize + "px monospace";
+            
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+
+    setInterval(draw, 33);
+
+    // Flicker effect for the text
+    setInterval(() => {
+        document.getElementById('flicker').style.visibility = 
+            (Math.random() > 0.1) ? 'visible' : 'hidden';
+    }, 50);
+</script>
+
+</body>
+</html>
+
+
+<!--<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SECURITY BREACH DETECTED</title>
+
+<style>
+:root {
+    --green: #00ff41;
+    --red: #ff0033;
+    --bg: #040404;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: var(--bg);
+    font-family: "Courier New", monospace;
+    color: var(--green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Scanlines */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.03) 0px,
+        rgba(255,255,255,0.03) 1px,
+        transparent 2px,
+        transparent 4px
+    );
+    pointer-events: none;
+    animation: scan 6s linear infinite;
+}
+
+@keyframes scan {
+    from { background-position: 0 0; }
+    to { background-position: 0 100%; }
+}
+
+/* Matrix-style background */
+.bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        rgba(0,255,65,0.08) 50%,
+        transparent 50%
+    );
+    background-size: 100% 3px;
+    opacity: 0.25;
+    animation: bgMove 10s linear infinite;
+}
+
+@keyframes bgMove {
+    from { background-position: 0 0; }
+    to { background-position: 0 100%; }
+}
+
+/* Container */
+.container {
+    position: relative;
+    z-index: 1;
+    padding: 3rem 4rem;
+    border: 2px solid var(--red);
+    background: rgba(255,0,0,0.04);
+    box-shadow:
+        0 0 20px rgba(255,0,0,0.6),
+        inset 0 0 15px rgba(255,0,0,0.4);
+    max-width: 90%;
+    text-align: center;
+}
+
+/* Glitch Title */
+h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    position: relative;
+    animation: glitch 1.2s infinite;
+}
+
+h1::before,
+h1::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    width: 100%;
+    opacity: 0.8;
+}
+
+h1::before {
+    color: red;
+    transform: translate(-2px, 0);
+    clip-path: inset(0 0 60% 0);
+}
+
+h1::after {
+    color: cyan;
+    transform: translate(2px, 0);
+    clip-path: inset(40% 0 0 0);
+}
+
+@keyframes glitch {
+    0% { transform: none; }
+    20% { transform: skew(-1deg); }
+    40% { transform: skew(1deg); }
+    60% { transform: skew(-0.5deg); }
+    100% { transform: none; }
+}
+
+/* Details */
+.details {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.details strong {
+    color: #fff;
+}
+
+/* Footer */
+.footer {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: #777;
+    letter-spacing: 1px;
+}
+
+/* Flicker */
+.container {
+    animation: flicker 4s infinite;
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    98% { opacity: 0.9; }
+    99% { opacity: 0.6; }
+}
+</style>
+</head>
+
+<body>
+<div class="bg"></div>
+
+<div class="container">
+    <h1 data-text="[ SYSTEM ERROR ]">[ SYSTEM ERROR ]</h1>
+
+    <div class="details">
+        <p><strong>Hacked By:</strong> Anonymous Ghost</p>
+        <p><strong>Status:</strong> ROOT ACCESS GRANTED</p>
+        <p><strong>Message:</strong> Your data is now under observation.</p>
+    </div>
+
+    <div class="footer">
+        IP Logged: 192.168.1.XX | Timestamp: 2025-12-28
+    </div>
+</div>
+</body>
+</html>
+
+
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SECURITY BREACHED</title>
+    <style>
+        /* The "Core" Look */
+        body {
+            background: #050505;
+            color: #00ff41; /* Classic Matrix Green */
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* The Red Glowing Box */
+        .container {
+            border: 2px solid #ff0000;
+            padding: 50px;
+            background: rgba(255, 0, 0, 0.05);
+            box-shadow: 0 0 20px #ff0000;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Animated Glitch Title */
+        h1 {
+            font-size: 3rem;
+            color: white;
+            text-transform: uppercase;
+            margin: 0;
+            animation: glitch 1s linear infinite;
+        }
+
+        @keyframes glitch {
+            2% { text-shadow: 2px 0 red, -2px 0 blue; }
+            4% { text-shadow: -2px 0 red, 2px 0 blue; }
+            6% { text-shadow: 2px 0 red, -2px 0 blue; }
+        }
+
+        /* The Scrolling Background (Simplified Matrix) */
+        .bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0, 255, 65, 0.1) 50%, transparent 50%);
+            background-size: 100% 4px;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .details { margin-top: 20px; font-size: 1.2rem; color: #00ff41; }
+        .footer { margin-top: 30px; font-size: 0.8rem; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+    <div class="container">
+        <h1>[ SYSTEM ERROR ]</h1>
+        <div class="details">
+            <p><strong>Hacked By:</strong> Anonymous Ghost</p>
+            <p><strong>Status:</strong> Root Access Granted</p>
+            <p><strong>Message:</strong> Your data is our playground.</p>
+        </div>
+        <div class="footer">
+            IP Logged: 192.168.1.XX | Timestamp: 2025-12-28
+        </div>
+    </div>
+</body>
+</html>
+
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <title>Hacked By Gemini</title>
+    <style>
+        /* This part makes the page look 'scary' */
+        body {
+            background-color: #000000; /* Pitch black background */
+            color: #00FF00;             /* "Matrix" green text */
+            font-family: "Courier New", Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 50px;
+            text-shadow: 0 0 10px #FF0000; /* Red glow on the main title */
+            color: #FF0000;
+        }
+
+        .message {
+            border: 1px solid #00FF00;
+            padding: 20px;
+            background: rgba(0, 255, 0, 0.1);
+        }
+
+        .glitch {
+            animation: blinker 1s linear infinite;
+        }
+
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="glitch">SYSTEM COMPROMISED</h1>
+    
+    <div class="message">
+        <p>Hacked By: <b>The Ghost User</b></p>
+        <p>Message: Your security is a joke. Patch your servers.</p>
+        <p>Greetz to: All my friends in the underground.</p>
+    </div>
+
+    <p style="margin-top: 50px; color: #555;">[Time of Attack: 2025-12-28]</p>
+
+</body>
+</html>--!>
